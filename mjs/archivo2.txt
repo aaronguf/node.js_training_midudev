@@ -1,0 +1,5 @@
+Este es el inicio del archivo 2
+Hola mundo este es el 
+contenido
+del segundoarchivo
+Final del segundo archivo
