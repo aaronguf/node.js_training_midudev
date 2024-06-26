@@ -1,6 +1,6 @@
 const http = require('node:http')
 
-// commonJS --> módilos clásicos de node
+// commonJS --> módulos clásicos de node
 const dittoJSON = require('./pokemon/ditto.json')
 
 const processRequest = (req, res) => {
@@ -20,9 +20,25 @@ const processRequest = (req, res) => {
 
     case 'POST':
       switch (url) {
-        case '/pokemon':
-          const body = ''
-            // ????
+        case '/pokemon':{
+          let body = ''
+          // escuchar el evento data
+          req.on('data', chunk => {
+            body += chunk.toString()
+          })
+
+          req.on('end', () => {
+            const data = JSON.parse(body)
+            // llamar a una base de datos para guardar la info
+            res.writeHead(201, { 'Content-Type': 'application/json; charset=utf-8' })
+            res.end(JSON.stringify(data))
+          })
+          break
+        }
+        default:
+          res.statusCode = 404
+          res.setHeader = ('Content-Type', 'text/plain; charset=utf-8')
+          return res.end('404 not found')
       }
   }
 }
